@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+      <script type="text/javascript" src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+
+  <style type="text/css">
+  </style>
+  <title>Cluster Heatmap</title>
+
+
+<script type='text/javascript'>//<![CDATA[
+$(window).load(function(){
+$("#date").datepicker({
+      dateFormat: 'yymmdd'
+});
+
+$("#date").click(function(){
+<!--    alert(document.getElementById('date').value);-->
+    document.getElementById("img").src = "heatmap_blade1up_Ambient_" + document.getElementById('date').value + ".png";
+    document.getElementById("img2").src = "heatmap_blade2up_Ambient_" + document.getElementById('date').value + ".png";
+    document.getElementById("img3").src = "heatmap_blade3up_Ambient_" + document.getElementById('date').value + ".png";
+    document.getElementById("img4").src = "heatmap_blade1down_Ambient_" + document.getElementById('date').value + ".png";
+    document.getElementById("img5").src = "heatmap_blade2down_Ambient_" + document.getElementById('date').value + ".png";
+    document.getElementById("img6").src = "heatmap_blade3down_Ambient_" + document.getElementById('date').value + ".png";
+
+});
+});//]]> 
+
+</script>
+
+  
+</head>
+
+<body>
+<h1><a href="http://web.aus.mwsrd.mediatek.inc/heatmap/index.html">Ambient Heatmap</a></h1>
+<p></p>
+<h1><a href="http://web.aus.mwsrd.mediatek.inc/heatmap/index2.html">CPU Heatmap</a></h1>
+<p></p>
+
+  <div id="date"></div>
+  <table style="width:50%">
+<tr>
+    <td><img id="img"></td>
+    <td><img id="img2"></td>
+    <td><img id="img3"></td>
+</tr>
+<tr>
+    <td><img id="img4"></td>
+    <td><img id="img5"></td>
+    <td><img id="img6"></td>
+</tr>
+
+</body>
+
+</html>
+
+
