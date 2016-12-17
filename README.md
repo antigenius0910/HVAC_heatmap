@@ -7,7 +7,7 @@ which make it hard for people who would like to track down individual items and 
 For example: If I would like to track down temprature of 8 servers. I am using binary hplog from hp-health.rpm. I can use graphie to generate below temprature from these 8 servers. It will look like this.
 ![screen shot 2016-12-17 at 3 01 52 pm](https://cloud.githubusercontent.com/assets/5915590/21289724/e3da9202-c469-11e6-8440-424f3ed7422b.png)
 
-Which is not too useful. 
+Which is not too useful since it's too crowded.
 
 Of course we can avarage them to one single line, but then it doesn't tell you which server might overheat because the HVAC can't cover that particular area.
 
