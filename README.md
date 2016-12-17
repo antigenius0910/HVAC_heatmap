@@ -18,6 +18,15 @@ You can modify my script blade1up_Ambient to suit your needs.
 
 The end result come out like this.
 
+![screen shot 2016-12-17 at 3 29 02 pm](https://cloud.githubusercontent.com/assets/5915590/21289869/a6372c7c-c46d-11e6-8da4-3adadfdf4150.png)
+
+Now we can tell the wind is coming from right side of the cluster and we could adjust HVAC wind flow accordingly to provide cold air to my servers.
+
+And now we apply this to my other clusters and use javascript to create a webpage which save all png for everyday and every month. You can find my script above in index.html.
+
+
+
+
 
 
 
