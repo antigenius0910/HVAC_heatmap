@@ -24,7 +24,9 @@ Now we can tell the wind is coming from right side of the cluster and we could a
 
 And now we apply this to my other clusters and use javascript to create a webpage which save all png for everyday and every month. You can find my script above in index.html.
 
+![screen shot 2016-12-17 at 3 55 08 pm](https://cloud.githubusercontent.com/assets/5915590/21290006/46d1fefc-c471-11e6-8579-a1223dff9ed4.png)
 
+Now I know exactly how current HVAC wind flow affect my clusters on everyday bases and I can start to test how to make my HVAC cool down in the most effective way.
 
 
 
