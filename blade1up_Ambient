@@ -1,0 +1,56 @@
+#!/bin/bash
+
+
+# declare the array
+MACHINE=( auslx56 auslx55 auslx64 auslx62 auslx52 auslx61 auslx72 auslx71)
+
+# to get the elements out of the array, use this syntax:
+#   "${ARRAY[@]}" -- with the quotes
+
+for element in "${MACHINE[@]}"; do
+    #echo "$element"
+    cd /var/lib/graphite/whisper/temp/"$element"
+#need to reserve data so latest data show in the bottom
+#    whisper-fetch.py Ambient.wsp | awk '{print $2}' | tac > "$element"_data
+    whisper-fetch.py Ambient.wsp | awk '{print $2}' > "$element"_data
+done 
+
+#get all temp in one file
+paste <(awk '{print $1}' /var/lib/graphite/whisper/temp/${MACHINE[0]}/${MACHINE[0]}_data) <(awk '{print $1}' /var/lib/graphite/whisper/temp/${MACHINE[1]}/${MACHINE[1]}_data) <(awk '{print $1}' /var/lib/graphite/whisper/temp/${MACHINE[2]}/${MACHINE[2]}_data) <(awk '{print $1}' /var/lib/graphite/whisper/temp/${MACHINE[3]}/${MACHINE[3]}_data) <(awk '{print $1}' /var/lib/graphite/whisper/temp/${MACHINE[4]}/${MACHINE[4]}_data) <(awk '{print $1}' /var/lib/graphite/whisper/temp/${MACHINE[5]}/${MACHINE[5]}_data) <(awk '{print $1}' /var/lib/graphite/whisper/temp/${MACHINE[6]}/${MACHINE[6]}_data) <(awk '{print $1}' /var/lib/graphite/whisper/temp/${MACHINE[7]}/${MACHINE[7]}_data) > ~/blade1up_data
+
+#when server stop responce blade1up_data will get a lot of "None", replace them with 0
+#Need to find a better way to do it, probably mark it as other color?
+sed -i 's/None/0/g' ~/blade1up_data 
+#cat ~/blade1up_data
+
+gnuplot -persist <<-EOFMarker
+	# set terminal pngcairo  transparent enhanced font "arial,10" fontscale 1.0 size 500, 350 
+	unset key
+	set view map
+	#set xtics border in scale 0,0 mirror norotate  offset character 0, 0, 0 autojustify
+	#set ytics border in scale 0,0 mirror norotate  offset character 0, 0, 0 autojustify
+	#set ztics border in scale 1,0 nomirror norotate  offset character 1, 0, 0 autojustify
+	#set nocbtics
+	#set rtics axis in scale 0,0 nomirror norotate  offset character 0, 0, 0 autojustify
+	set xtics ('auslx56' 0, 'auslx55' 1, 'auslx64' 2, 'auslx62' 3, 'auslx52' 4, 'auslx61' 5, 'auslx72' 6, 'auslx71' 7,) rotate by 45 right
+        set title "Daily Heatmap for Cluster 1 upper side Ambient"
+
+	set xlabel "Servers"
+	set ylabel "Timeline"
+
+	#set pm3d interpolate x,y
+	#set tic scale 0
+	set terminal png
+	set output "~/heatmap_blade1up_Ambient_$(date +"%Y%m%d").png"
+
+	set xrange [ -0.5 : 7.5 ] noreverse nowriteback
+        set ydata time
+	set yrange [ -0.5 : 1438.5 ] noreverse nowriteback
+        set format y "%M:%S"
+	set cblabel "Temp"
+	set cbrange [ 50 : 85 ] noreverse nowriteback
+	set palette rgbformulae 22,13,10
+	plot '~/blade1up_data' matrix with image
+EOFMarker
+
+eog ~/heatmap_blade1up_Ambient_$(date +"%Y%m%d").png & 
